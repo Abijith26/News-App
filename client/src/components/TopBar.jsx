@@ -8,7 +8,7 @@ export default function TopBar() {
       <AppBar position="static">
         <Toolbar variant="dense">
           <Typography variant="h6" color="inherit" component="div">
-            Sieh hier Nachrichten
+            Schau dir hier die Nachrichten an!
           </Typography>
         </Toolbar>
       </AppBar>
