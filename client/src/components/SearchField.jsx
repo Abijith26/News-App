@@ -5,12 +5,16 @@ export default function SearchField() {
   const searchDiv = useRef();
 
   useEffect(() => {
-    gsap.from(searchDiv.current, {
-      y: -100,
-      opacity: 1,
-      duration: 5, // Duration of the animation in seconds
-      ease: "power3.out", // Ease function for smooth animation
-    });
+    gsap.fromTo(
+      searchDiv.current,
+      { y: -100, opacity: 0 }, // Start 100px above its final position with 0 opacity
+      {
+        y: 10, // End at its default position
+        opacity: 1, // Fade in to full opacity
+        duration: 1.5, // Animation duration in seconds
+        ease: "power3.out", // Smooth easing
+      }
+    );
   }, []);
 
   return (
@@ -19,7 +23,7 @@ export default function SearchField() {
       id="search-bar"
       ref={searchDiv}
     >
-      <form className="px-4 w-full max-w-[450px]">
+      <form className="px-4 w-full xl:max-w-[500px] lg:max-w-[400px] md:max-w-[370px] sm:max-w-[330px]">
         <label
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           htmlFor="default-search"
