@@ -1,8 +1,10 @@
 function App() {
   return (
-    <>
-      <p>Herzlich Willkommen zum Projekt ,,NEWS App"</p>
-    </>
+    <div>
+      <p className="text-orange-600">
+        Herzlich Willkommen zum Projekt ,,NEWS App"
+      </p>
+    </div>
   );
 }
 
