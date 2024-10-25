@@ -1,7 +1,10 @@
+import TopBar from "./components/TopBar";
+
 function App() {
   return (
     <div>
-      <p className="text-orange-600">
+      <TopBar />
+      <p className="text-orange-700 font-bold">
         Herzlich Willkommen zum Projekt ,,NEWS App"
       </p>
     </div>
