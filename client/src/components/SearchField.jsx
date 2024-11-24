@@ -1,29 +1,48 @@
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Section from "./Section";
+// import NewsShower from "./NewsShower";
 
-export default function SearchField() {
+export default function SearchField({ search, setSearch, setSearchResult }) {
   const searchDiv = useRef();
+  const APIKey = "9GBRqRCkVpd6Voo5SG35kXXzKnKJ0Prk";
 
   useEffect(() => {
     gsap.fromTo(
       searchDiv.current,
-      { y: -100, opacity: 0 }, // Start 100px above its final position with 0 opacity
+      { y: -100, opacity: 0 },
       {
-        y: 10, // End at its default position
-        opacity: 1, // Fade in to full opacity
-        duration: 1.5, // Animation duration in seconds
-        ease: "power3.out", // Smooth easing
+        y: 10,
+        opacity: 1,
+        duration: 1.5,
+        ease: "power3.out",
       }
     );
   }, []);
 
+  async function newsSearch(e) {
+    e.preventDefault();
+    console.log("News Search Begins...");
+    const res = await fetch(
+      `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${search}&api-key=${APIKey}`
+    );
+    const data = await res.json();
+    console.log(data);
+    setSearchResult([...data.response.docs]);
+    console.log("News Search Ends...");
+    setSearch("");
+  }
+
   return (
     <div
-      className="w-screen flex justify-center items-center"
+      className="w-screen flex justify-evenly items-center"
       id="search-bar"
       ref={searchDiv}
     >
-      <form className="px-4 w-full xl:max-w-[500px] lg:max-w-[400px] md:max-w-[370px] sm:max-w-[330px]">
+      <form
+        className="px-4 w-full xl:max-w-[500px] lg:max-w-[400px] md:max-w-[370px] sm:max-w-[330px]"
+        onSubmit={newsSearch}
+      >
         <label
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           htmlFor="default-search"
@@ -54,6 +73,8 @@ export default function SearchField() {
             className="block w-full p-4 py-5 ps-10 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             id="default-search"
             type="search"
+            value={search}
+            onInput={(e) => setSearch(e.target.value)}
           />
           <button className="absolute end-2.5 bottom-1/2 translate-y-1/2 p-4 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             <svg
@@ -75,6 +96,7 @@ export default function SearchField() {
           </button>
         </div>
       </form>
+      <Section />
     </div>
   );
 }
