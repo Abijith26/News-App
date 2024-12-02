@@ -17,8 +17,10 @@ function App() {
         search={search}
         setSearch={setSearch}
         setSearchResult={setSearchResult}
+        setIsNewsSearched={setIsNewsSearched}
       />
-      <NewsShower searchResult={searchResult} />
+
+      <NewsShower searchResult={searchResult} isNewsSearched={isNewsSearched} />
     </div>
   );
 }

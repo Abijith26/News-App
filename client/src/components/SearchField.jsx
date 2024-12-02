@@ -3,7 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import Section from "./Section";
 // import NewsShower from "./NewsShower";
 
-export default function SearchField({ search, setSearch, setSearchResult }) {
+export default function SearchField({
+  search,
+  setSearch,
+  setSearchResult,
+  setIsNewsSearched,
+}) {
   const searchDiv = useRef();
   const APIKey = "9GBRqRCkVpd6Voo5SG35kXXzKnKJ0Prk";
 
@@ -23,6 +28,8 @@ export default function SearchField({ search, setSearch, setSearchResult }) {
   async function newsSearch(e) {
     e.preventDefault();
     console.log("News Search Begins...");
+    setIsNewsSearched(true);
+    setSearchResult([]);
     const res = await fetch(
       `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${search}&api-key=${APIKey}`
     );
